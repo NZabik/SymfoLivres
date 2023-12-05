@@ -26,11 +26,11 @@
 								{{ livre.editeur.nom }}</small>
 						</p>
 						
-						<div class="d-flex justify-content-end">
+						<div class="d-flex justify-content-end d-flex align-items-center">
 						{% if livre.user is null %}
 						{{ include('livre/_location_form.html.twig') }}
 						{% else %}
-						<p style="color:red">Livre  déjà loué</p>
+						<p class="h4 text-danger mx-2">Livre  déjà loué</p>
 						{% endif %}
 						{% if is_granted('ROLE_ADMIN') %}
 							<a href="{{ path('app_livre_show', {'id': livre.id}) }}" class="btn btn-primary mx-1">Détails</a>

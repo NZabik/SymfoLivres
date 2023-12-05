@@ -1,4 +1,4 @@
 <form method="post" action="{{ path('app_livre_location', {'id': livre.id}) }}" onsubmit="return confirm('Voulez-vous vraiment louer ce livre ?');">
     <input type="hidden" name="_token" value="{{ csrf_token('location' ~ livre.id) }}">
-    <button class="btn btn-primary">Louer</button>
+    <button class="btn btn-success">Louer</button>
 </form>
