@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\UserRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -61,9 +63,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(length: 255)]
     private ?string $Profil = null;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Livre::class)]
+    private Collection $livres;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
+        $this->livres = new ArrayCollection();
 }
     
     
@@ -245,6 +251,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setProfil(string $Profil): static
     {
         $this->Profil = $Profil;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Livre>
+     */
+    public function getLivres(): Collection
+    {
+        return $this->livres;
+    }
+
+    public function addLivre(Livre $livre): static
+    {
+        if (!$this->livres->contains($livre)) {
+            $this->livres->add($livre);
+            $livre->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLivre(Livre $livre): static
+    {
+        if ($this->livres->removeElement($livre)) {
+            // set the owning side to null (unless already changed)
+            if ($livre->getUser() === $this) {
+                $livre->setUser(null);
+            }
+        }
 
         return $this;
     }
