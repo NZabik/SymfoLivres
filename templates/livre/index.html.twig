@@ -25,9 +25,13 @@
 							<small class="text-body-secondary">Editeur:
 								{{ livre.editeur.nom }}</small>
 						</p>
+						
 						<div class="d-flex justify-content-end">
+							<a href="#" class="btn btn-primary">Louer</a>
+						{% if is_granted('ROLE_ADMIN') %}
 							<a href="{{ path('app_livre_show', {'id': livre.id}) }}" class="btn btn-primary mx-1">Détails</a>
 							<a href="{{ path('app_livre_edit', {'id': livre.id}) }}" class="btn btn-primary mx-1">Editer</a>
+							{% endif %}
 						</div>
 					</div>
 				</div>
@@ -40,5 +44,7 @@
 	<div>Pas de livres trouvés</div>
 </tr>
 {% endfor %}
-
-<a href="{{ path('app_livre_new') }}" class="btn btn-primary">Ajouter un nouveau livre</a></div>{% endblock %}
+{% if is_granted('ROLE_ADMIN') %}
+<a href="{{ path('app_livre_new') }}" class="btn btn-primary">Ajouter un nouveau livre</a>
+{% endif %}
+{% endblock %}

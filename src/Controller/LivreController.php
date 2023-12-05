@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
@@ -18,6 +19,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 class LivreController extends AbstractController
 {
     #[Route('/', name: 'app_livre_index', methods: ['GET'])]
+    #[IsGranted('ROLE_USER')]
     public function index(LivreRepository $livreRepository): Response
     {
         return $this->render('livre/index.html.twig', [
@@ -26,6 +28,7 @@ class LivreController extends AbstractController
     }
 
     #[Route('/new', name: 'app_livre_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $livre = new Livre();
@@ -75,6 +78,7 @@ class LivreController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_livre_show', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function show(Livre $livre): Response
     {
         return $this->render('livre/show.html.twig', [
@@ -83,6 +87,7 @@ class LivreController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_livre_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(Request $request, Livre $livre, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
         $form = $this->createForm(LivreType::class, $livre);
@@ -129,6 +134,7 @@ class LivreController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_livre_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, Livre $livre, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $livre->getId(), $request->request->get('_token'))) {

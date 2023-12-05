@@ -6,15 +6,17 @@ use App\Entity\Editeur;
 use App\Form\EditeurType;
 use App\Repository\EditeurRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/editeur')]
 class EditeurController extends AbstractController
 {
     #[Route('/', name: 'app_editeur_index', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function index(EditeurRepository $editeurRepository): Response
     {
         return $this->render('editeur/index.html.twig', [
@@ -23,6 +25,7 @@ class EditeurController extends AbstractController
     }
 
     #[Route('/new', name: 'app_editeur_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $editeur = new Editeur();
@@ -43,6 +46,7 @@ class EditeurController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_editeur_show', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function show(Editeur $editeur): Response
     {
         return $this->render('editeur/show.html.twig', [
@@ -69,6 +73,7 @@ class EditeurController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_editeur_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, Editeur $editeur, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$editeur->getId(), $request->request->get('_token'))) {
