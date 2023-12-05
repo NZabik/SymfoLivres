@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Livre;
 use App\Form\LivreType;
-use App\Service\FileUploader;
 use App\Repository\LivreRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,7 +37,7 @@ class LivreController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $brochureFile = $form->get('couverture')->getData();
-            
+
 
             // this condition is needed because the 'brochure' field is not required
             // so the PDF file must be processed only when a file is uploaded
@@ -139,6 +138,20 @@ class LivreController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete' . $livre->getId(), $request->request->get('_token'))) {
             $entityManager->remove($livre);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_livre_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/location', name: 'app_livre_location', methods: ['GET','POST'])]
+    #[IsGranted('ROLE_USER')]
+    public function location(Request $request, Livre $livre, EntityManagerInterface $entityManager): Response
+    {
+
+        if ($this->isCsrfTokenValid('location' . $livre->getId(), $request->request->get('_token'))) {
+            
+            $livre->setUser($this->getUser());;
             $entityManager->flush();
         }
 
