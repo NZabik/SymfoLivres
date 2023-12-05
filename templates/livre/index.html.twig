@@ -1,45 +1,44 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Livre index{% endblock %}
+{% block title %}Livre index
+{% endblock %}
 
 {% block body %}
-    <h1>Livre index</h1>
+<div class="container mt-4">
+	<h1>Livre index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Auteur</th>
-                <th>Editeur</th>
-                <th>Couverture</th>
-                <th>Resume</th>
-                <th>CreatedAt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for livre in livres %}
-            <tr>
-                <td>{{ livre.id }}</td>
-                <td>{{ livre.nom }}</td>
-                <td>{{ livre.auteur.nom }}</td>
-                <td>{{ livre.editeur.nom }}</td>
-                <td><img class="img-fluid" width="100px" src="{{asset('/uploads/couvertures/'~ livre.couverture)  }}"/></td>
-                <td>{{ livre.resume }}</td>
-                <td>{{ livre.createdAt ? livre.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_livre_show', {'id': livre.id}) }}">show</a>
-                    <a href="{{ path('app_livre_edit', {'id': livre.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+	{% for livre in livres %}
+		<div class="card mb-4" style="max-width: 70rem;">
+			<div class="row g-0">
+				<div class="col-md-4 d-flex justify-content-center">
+					<img src="{{asset('/uploads/couvertures/'~ livre.couverture) }}" class="img-fluid object-fit-cover" id="imgCard" alt="...">
+				</div>
+				<div class="col-md-8">
+					<div class="card-body">
+						<h5 class="card-title">{{ livre.nom }}</h5>
+						<p class="card-text">{{ livre.resume }}</p>
+						<p class="card-text">
+							<small class="text-body-secondary">Auteur:
+								{{ livre.auteur.nom }}</small>
+						</p>
+						<p class="card-text">
+							<small class="text-body-secondary">Editeur:
+								{{ livre.editeur.nom }}</small>
+						</p>
+						<div class="d-flex justify-content-end">
+							<a href="{{ path('app_livre_show', {'id': livre.id}) }}" class="btn btn-primary mx-1">Détails</a>
+							<a href="{{ path('app_livre_edit', {'id': livre.id}) }}" class="btn btn-primary mx-1">Editer</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+{% else %}
+</div>
 
-    <a href="{{ path('app_livre_new') }}">Create new</a>
-{% endblock %}
+<tr>
+	<div>Pas de livres trouvés</div>
+</tr>
+{% endfor %}
+
+<a href="{{ path('app_livre_new') }}" class="btn btn-primary">Ajouter un nouveau livre</a></div>{% endblock %}

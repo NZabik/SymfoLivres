@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register
+{% endblock %}
+
+{% block body %}
+	<h1 class="container">Register</h1>
+
+	{{ form_errors(registrationForm) }}
+	<div class="container">
+		{{ form_start(registrationForm) }}
+		<div class="form-error">
+			{{ form_errors(registrationForm.nom)}}
+		</div>
+		<div class="form-group">
+			{{ form_label(registrationForm.nom) }}
+			{{ form_widget(registrationForm.nom) }}
+		</div>
+		<div class="form-error">
+			{{ form_errors(registrationForm.prenom)}}
+		</div>
+		<div class="form-group">
+			{{ form_label(registrationForm.prenom) }}
+			{{ form_widget(registrationForm.prenom) }}
+		</div>
+		<div class="form-error">
+			{{ form_errors(registrationForm.profil)}}
+		</div>
+		<div class="form-group">
+			{{ form_label(registrationForm.profil) }}
+			{{ form_widget(registrationForm.profil) }}
+		</div>
+		<div class="form-error">
+			{{ form_errors(registrationForm.email)}}
+		</div>
+		<div class="form-group">
+			{{ form_label(registrationForm.email) }}
+			{{ form_widget(registrationForm.email) }}
+		</div>
+		<div class="form-error">
+			{{ form_errors(registrationForm.plainPassword)}}
+		</div>
+		<div class="form-group">
+			{{ form_label(registrationForm.plainPassword) }}
+			{{ form_widget(registrationForm.plainPassword) }}
+		</div>
+		<div class="form-error">
+			{{ form_errors(registrationForm.RGPD)}}
+		</div>
+		<div class="form-group">
+			{{ form_label(registrationForm.RGPD) }}
+			{{ form_widget(registrationForm.RGPD) }}
+		</div>
+		<button type="submit" class="btn btn-primary mt-4">Register</button>
+		{{ form_end(registrationForm) }}
+	</div>
+{% endblock %}
