@@ -18,17 +18,17 @@ class LivreCrudController extends AbstractCrudController
     }
 
     
-    public function configureFields(string $pageName): iterable
-    {
-        return [
-            IdField::new('id'),
-            TextField::new('nom'),
-            TextEditorField::new('resume'),
-            Field::new('couverture'),
-            Field::new('auteur.nom'),
-            Field::new('editeur.nom'),
-            Field::new('user.id'),
-        ];
-    }
+    // public function configureFields(string $pageName): iterable
+    // {
+    //     return [
+    //         IdField::new('id'),
+    //         TextField::new('nom'),
+    //         TextEditorField::new('resume'),
+    //         Field::new('couverture'),
+    //         Field::new('auteur.id'),
+    //         Field::new('editeur.id'),
+    //         Field::new('user.id'),
+    //     ];
+    // }
     
 }

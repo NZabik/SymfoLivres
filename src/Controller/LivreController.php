@@ -17,6 +17,16 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 #[Route('/livre')]
 class LivreController extends AbstractController
 {
+    #[Route('/loue', name: 'app_livre_loue', methods: ['GET'])]
+    #[IsGranted('ROLE_USER')]
+    public function loue(LivreRepository $livreRepository): Response
+    {
+        return $this->render('livre/loue.html.twig', [
+            'livres' => $livreRepository->findBy(['user'=> $this->getUser()]),
+        ]);
+    }
+
+    
     #[Route('/', name: 'app_livre_index', methods: ['GET'])]
     #[IsGranted('ROLE_USER')]
     public function index(LivreRepository $livreRepository): Response
@@ -150,11 +160,15 @@ class LivreController extends AbstractController
     {
 
         if ($this->isCsrfTokenValid('location' . $livre->getId(), $request->request->get('_token'))) {
-            
-            $livre->setUser($this->getUser());;
+            date_default_timezone_set('Europe/Paris');
+            $date = new \DateTime;
+            $livre->setUser($this->getUser());
+            $livre->setDateLocation($date);
             $entityManager->flush();
         }
 
         return $this->redirectToRoute('app_livre_index', [], Response::HTTP_SEE_OTHER);
     }
+    
+    
 }

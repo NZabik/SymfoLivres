@@ -43,6 +43,9 @@ class Livre
     #[ORM\ManyToOne(inversedBy: 'livres')]
     private ?User $user = null;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $dateLocation = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
@@ -134,6 +137,18 @@ class Livre
     public function setUser(?User $user): static
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getDateLocation(): ?\DateTimeInterface
+    {
+        return $this->dateLocation;
+    }
+
+    public function setDateLocation(?\DateTimeInterface $dateLocation): static
+    {
+        $this->dateLocation = $dateLocation;
 
         return $this;
     }
