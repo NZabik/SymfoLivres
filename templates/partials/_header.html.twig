@@ -39,13 +39,13 @@
 				{% endif %}
 				{% if app.user %}
 					<li class="nav-item dropdown d-flex">
-						
-							<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ app.user.nom}}
-								{{app.user.prenom}}
-								
-									<img class="img-fluid rounded-circle object-fit-cover" style="width:50px; height:50px" src="{{asset('/uploads/profil/'~ app.user.profil) }}"/></a>
-							
-						
+
+						<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ app.user.nom}}
+							{{app.user.prenom}}
+
+							<img class="img-fluid rounded-circle object-fit-cover" style="width:50px; height:50px" src="{{asset('/uploads/profil/'~ app.user.profil) }}"/></a>
+
+
 						<div class="dropdown-menu">
 							{% if is_granted('ROLE_ADMIN') %}
 								<a class="dropdown-item" href="{{path('admin', {id: app.user.id})}}">Dashboard</a>
@@ -70,10 +70,11 @@
 				{% endif %}
 			</ul>
 			{% if app.user %}
-				<form class="d-flex">
-					<input class="form-control me-sm-2" type="search" placeholder="Search">
-					<button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-				</form>
+				<div class="d-flex">
+					{{ render(controller(
+        'App\\Controller\\SearchController::searchBar'
+ )) }}
+				</div>
 			{% endif %}
 		</div>
 	</div>

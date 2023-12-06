@@ -21,19 +21,39 @@ class LivreRepository extends ServiceEntityRepository
         parent::__construct($registry, Livre::class);
     }
 
+
+// Find/search articles by title/content
+public function findArticlesByName(string $query)
+{
+    $qb = $this->createQueryBuilder('c');
+    if ($query) {
+        $qb->andWhere('c.nom LIKE :term')
+            ->setParameter('term', '%' . $query . '%')
+        ;
+    }
+    return $qb
+        ->orderBy('c.id', 'ASC')
+        ->getQuery()
+        ->getResult()
+    ;
+}
+
+
+
 //    /**
 //     * @return Livre[] Returns an array of Livre objects
 //     */
-//    public function findByExampleField($value): array
+//    public function findArticlesByName($query): array
 //    {
-//        return $this->createQueryBuilder('l')
-//            ->andWhere('l.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('l.id', 'ASC')
+//        return $this->createQueryBuilder('e')
+//            ->andWhere('e.nom = :nom')
+//            ->setParameter('nom', $query)
+//            ->orderBy('e.id', 'ASC')
 //            ->setMaxResults(10)
 //            ->getQuery()
 //            ->getResult()
 //        ;
+       
 //    }
 
 //    public function findOneBySomeField($value): ?Livre
