@@ -170,5 +170,18 @@ class LivreController extends AbstractController
         return $this->redirectToRoute('app_livre_index', [], Response::HTTP_SEE_OTHER);
     }
     
+    #[Route('/{id}/rendre', name: 'app_livre_rendre', methods: ['GET','POST'])]
+    #[IsGranted('ROLE_USER')]
+    public function rendre(Request $request, Livre $livre, EntityManagerInterface $entityManager): Response
+    {
+
+        if ($this->isCsrfTokenValid('rendre' . $livre->getId(), $request->request->get('_token'))) {
+            $livre->setUser(null);
+            $livre->setDateLocation(null);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('app_livre_index', [], Response::HTTP_SEE_OTHER);
+    }
     
 }
