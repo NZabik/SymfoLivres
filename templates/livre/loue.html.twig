@@ -4,40 +4,44 @@
 {% endblock %}
 
 {% block body %}
-<div class="container mt-4">
-	<h1>Livres loués</h1>
+	<div class="container mt-4">
+		<h1>Livres loués</h1>
 
-	{% for livre in livres %}
-		<div class="card mb-4" style="max-width: 70rem;">
-			<div class="row g-0">
-				<div class="col-md-4 d-flex justify-content-center">
-					<img src="{{asset('/uploads/couvertures/'~ livre.couverture) }}" class="img-fluid object-fit-cover" id="imgCard" alt="...">
-				</div>
-				<div class="col-md-8">
-					<div class="card-body">
-						<h5 class="card-title">{{ livre.nom }}</h5>
-						<p class="card-text">{{ livre.resume }}</p>
-						<p class="card-text">
-							<small class="text-body-secondary">Auteur:
-								{{ livre.auteur.nom }}</small>
-						</p>
-						<p class="card-text">
-							<small class="text-body-secondary">Editeur:
-								{{ livre.editeur.nom }}</small>
-						</p>
-						
-						<div class="d-flex justify-content-end d-flex align-items-center">
-						{{ include('livre/_rendre_form.html.twig') }}
+		{% for livre in livres %}
+			<div class="card mb-4" style="max-width: 70rem;">
+				<div class="row g-0">
+					<div class="col-md-4 d-flex justify-content-center">
+						<img src="{{asset('/uploads/couvertures/'~ livre.couverture) }}" class="img-fluid object-fit-cover" id="imgCard" alt="...">
+					</div>
+					<div class="col-md-8">
+						<div class="card-body">
+							<h5 class="card-title">{{ livre.nom }}</h5>
+							<p class="card-text">{{ livre.resume }}</p>
+							<p class="card-text">
+								<small class="text-body-secondary">Auteur:
+									{{ livre.auteur.nom }}</small>
+							</p>
+							<p class="card-text">
+								<small class="text-body-secondary">Editeur:
+									{{ livre.editeur.nom }}</small>
+							</p>
+							<div class="d-flex justify-content-between align-items-center">
+								<div>
+									<p class="text-success">loué le : {{ livre.dateLocation|date('d-m-Y à H:i:s') }}</p>
+								</div>
+								<div>
+									{{ include('livre/_rendre_form.html.twig') }}
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+	{% else %}
 		</div>
-{% else %}
-</div>
 
-<tr>
-	<div class="container mt-4">Pas de livres loués</div>
-</tr>
-{% endfor %}
+		<tr>
+			<div class="container mt-4">Pas de livres loués</div>
+		</tr>
+	{% endfor %}
 {% endblock %}
