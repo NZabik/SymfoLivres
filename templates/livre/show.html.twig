@@ -37,6 +37,15 @@
                 <td>{{ livre.resume }}</td>
             </tr>
             <tr>
+                <th>Genre</th>
+                {% if livre.genre is null %}
+						<td>Pas de genre</td>
+						{% else %}
+						<td>{{ livre.genre.nom }}</td>
+						{% endif %}
+                
+            </tr>
+            <tr>
                 <th>Location</th>
                 {% if livre.user is null %}
 						<td>Livre non loué</td>
@@ -45,6 +54,7 @@
 						{% endif %}
                 
             </tr>
+            
              
         </tbody>
     </table>

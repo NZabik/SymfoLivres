@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use App\Entity\Genre;
 use App\Entity\Livre;
 use App\Entity\Auteur;
 use App\Entity\Editeur;
@@ -40,5 +41,6 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Auteur', 'fas fa-user-pen', Auteur::class);
         yield MenuItem::linkToCrud('Editeur', 'far fa-handshake', Editeur::class);
         yield MenuItem::linkToCrud('Livre', 'fas fa-book', Livre::class);
+        yield MenuItem::linkToCrud('Genre', 'fas fa-book-atlas', Genre::class);
     }
 }

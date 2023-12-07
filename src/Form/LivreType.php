@@ -2,17 +2,18 @@
 
 namespace App\Form;
 
+use App\Entity\Genre;
 use App\Entity\Livre;
 use App\Entity\Auteur;
 use App\Entity\Editeur;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Validator\Constraints\File;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class LivreType extends AbstractType
 {
@@ -41,7 +42,6 @@ class LivreType extends AbstractType
                 ],
                 'mapped' => false,
                 'constraints' => [
-                    new Assert\NotBlank,
                     new File([
                         'mimeTypes' => [
                             'image/jpeg',
@@ -69,6 +69,10 @@ class LivreType extends AbstractType
             ])
             ->add('editeur', EntityType::class, [
                 'class' => Editeur::class,
+                'choice_label' => 'nom',
+            ])
+            ->add('genre', EntityType::class, [
+                'class' => Genre::class,
                 'choice_label' => 'nom',
             ]);
     }
