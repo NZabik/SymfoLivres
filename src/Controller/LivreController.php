@@ -26,7 +26,6 @@ class LivreController extends AbstractController
         ]);
     }
 
-    
     #[Route('/', name: 'app_livre_index', methods: ['GET'])]
     #[IsGranted('ROLE_USER')]
     public function index(LivreRepository $livreRepository): Response
