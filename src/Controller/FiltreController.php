@@ -30,10 +30,13 @@ class FiltreController extends AbstractController
             ->add('auteur', EntityType::class, [
                 'class' => Auteur::class,
                 'choice_label' => 'nom',
+                'attr' => [
+                    'class' => 'text-info'
+                ]
             ])
             ->add('recherche', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-primary'
+                    'class' => 'btn btn-outline-info'
                 ]
             ])
             ->getForm();
@@ -61,10 +64,13 @@ class FiltreController extends AbstractController
             ->add('editeur', EntityType::class, [
                 'class' => Editeur::class,
                 'choice_label' => 'nom',
+                'attr' => [
+                    'class' => 'text-warning'
+                ]
             ])
             ->add('recherche', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-primary'
+                    'class' => 'btn btn-outline-warning'
                 ]
             ])
             ->getForm();
@@ -90,10 +96,13 @@ class FiltreController extends AbstractController
             ->add('genre', EntityType::class, [
                 'class' => Genre::class,
                 'choice_label' => 'nom',
+                'attr' => [
+                    'class' => 'text-danger'
+                ]
             ])
             ->add('recherche', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-primary'
+                    'class' => 'btn btn-outline-danger'
                 ]
             ])
             ->getForm();
