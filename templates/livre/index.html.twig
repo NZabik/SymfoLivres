@@ -4,51 +4,65 @@
 {% endblock %}
 
 {% block body %}
-<div class="container mt-4">
-	<h1>Livre index</h1>
+	<div class="container mt-4">
+		<h1>Livre index</h1>
+		<div class="d-flex my-2">
+			<div class="mx-2">
+				{{ render(controller('App\\Controller\\FiltreController::filterBar')) }}
+			</div>
+			<div class="mx-2">
+				{{ render(controller('App\\Controller\\FiltreController::filterBar2')) }}
+			</div>
+			<div class="mx-2">
+				{{ render(controller('App\\Controller\\FiltreController::filterBar3')) }}
+			</div>
+		</div>
+		{% for livre in livres %}
+			<div class="card mb-4" style="max-width: 70rem;">
+				<div class="row g-0">
+					<div class="col-md-4 d-flex justify-content-center">
+						<img src="{{asset('/uploads/couvertures/'~ livre.couverture) }}" class="img-fluid object-fit-cover" id="imgCard" alt="...">
+					</div>
+					<div class="col-md-8">
+						<div class="card-body">
+							<h5 class="card-title">{{ livre.nom }}</h5>
+							<p class="card-text">{{ livre.resume }}</p>
+							<p class="card-text">
+								<small class="text-body-secondary">Auteur:
+									{{ livre.auteur.nom }}</small>
+							</p>
+							<p class="card-text">
+								<small class="text-body-secondary">Editeur:
+									{{ livre.editeur.nom }}</small>
+							</p>
+							<p class="card-text">
+								<small class="text-body-secondary">Genre:
+									{{ livre.genre.nom }}</small>
+							</p>
 
-	{% for livre in livres %}
-		<div class="card mb-4" style="max-width: 70rem;">
-			<div class="row g-0">
-				<div class="col-md-4 d-flex justify-content-center">
-					<img src="{{asset('/uploads/couvertures/'~ livre.couverture) }}" class="img-fluid object-fit-cover" id="imgCard" alt="...">
-				</div>
-				<div class="col-md-8">
-					<div class="card-body">
-						<h5 class="card-title">{{ livre.nom }}</h5>
-						<p class="card-text">{{ livre.resume }}</p>
-						<p class="card-text">
-							<small class="text-body-secondary">Auteur:
-								{{ livre.auteur.nom }}</small>
-						</p>
-						<p class="card-text">
-							<small class="text-body-secondary">Editeur:
-								{{ livre.editeur.nom }}</small>
-						</p>
-						
-						<div class="d-flex justify-content-end d-flex align-items-center">
-						{% if livre.user is null %}
-						{{ include('livre/_location_form.html.twig') }}
-						{% else %}
-						<p class="h4 text-danger mx-2">Livre  déjà loué</p>
-						{% endif %}
-						{% if is_granted('ROLE_ADMIN') %}
-							<a href="{{ path('app_livre_show', {'id': livre.id}) }}" class="btn btn-primary mx-1">Détails</a>
-							<a href="{{ path('app_livre_edit', {'id': livre.id}) }}" class="btn btn-primary mx-1">Editer</a>
-							{% endif %}
+							<div class="d-flex justify-content-end d-flex align-items-center">
+								{% if livre.user is null %}
+									{{ include('livre/_location_form.html.twig') }}
+								{% else %}
+									<p class="h4 text-danger mx-2">Livre  déjà loué</p>
+								{% endif %}
+								{% if is_granted('ROLE_ADMIN') %}
+									<a href="{{ path('app_livre_show', {'id': livre.id}) }}" class="btn btn-primary mx-1">Détails</a>
+									<a href="{{ path('app_livre_edit', {'id': livre.id}) }}" class="btn btn-primary mx-1">Editer</a>
+								{% endif %}
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
+	{% else %}
 		</div>
-{% else %}
-</div>
 
-<tr>
-	<div>Pas de livres trouvés</div>
-</tr>
-{% endfor %}
-{% if is_granted('ROLE_ADMIN') %}
-<a href="{{ path('app_livre_new') }}" class="btn btn-primary">Ajouter un nouveau livre</a>
-{% endif %}
+		<tr>
+			<div>Pas de livres trouvés</div>
+		</tr>
+	{% endfor %}
+	{% if is_granted('ROLE_ADMIN') %}
+		<a href="{{ path('app_livre_new') }}" class="btn btn-primary">Ajouter un nouveau livre</a>
+	{% endif %}
 {% endblock %}

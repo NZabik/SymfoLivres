@@ -17,4 +17,8 @@ return [
     Symfony\UX\StimulusBundle\StimulusBundle::class => ['all' => true],
     Symfony\UX\Chartjs\ChartjsBundle::class => ['all' => true],
     Lexik\Bundle\FormFilterBundle\LexikFormFilterBundle::class => ['all' => true],
+    Nelmio\CorsBundle\NelmioCorsBundle::class => ['all' => true],
+    ApiPlatform\Symfony\Bundle\ApiPlatformBundle::class => ['all' => true],
+    Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle::class => ['all' => true],
+    Artprima\QueryFilterBundle\ArtprimaQueryFilterBundle::class => ['all' => true],
 ];

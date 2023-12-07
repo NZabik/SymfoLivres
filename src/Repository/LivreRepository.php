@@ -28,8 +28,7 @@ public function findArticlesByName(string $query)
     $qb = $this->createQueryBuilder('c');
     if ($query) {
         $qb->andWhere('c.nom LIKE :term')
-            ->setParameter('term', '%' . $query . '%')
-        ;
+            ->setParameter('term', '%' . $query . '%');
     }
     return $qb
         ->orderBy('c.id', 'ASC')
@@ -38,31 +37,43 @@ public function findArticlesByName(string $query)
     ;
 }
 
-
-
-//    /**
-//     * @return Livre[] Returns an array of Livre objects
-//     */
-//    public function findArticlesByName($query): array
-//    {
-//        return $this->createQueryBuilder('e')
-//            ->andWhere('e.nom = :nom')
-//            ->setParameter('nom', $query)
-//            ->orderBy('e.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-       
-//    }
-
-//    public function findOneBySomeField($value): ?Livre
-//    {
-//        return $this->createQueryBuilder('l')
-//            ->andWhere('l.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+public function findArticlesByAuteur(string $query)
+{
+    $qb = $this->createQueryBuilder('c');
+    if ($query) {
+        $qb->andWhere('c.auteur = :auteur')
+            ->setParameter('auteur',$query);
+    }
+    return $qb
+        ->orderBy('c.auteur', 'ASC')
+        ->getQuery()
+        ->getResult()
+    ;
+}
+public function findArticlesByEditeur(string $query)
+{
+    $qb = $this->createQueryBuilder('c');
+    if ($query) {
+        $qb->andWhere('c.editeur = :editeur')
+            ->setParameter('editeur',$query);
+    }
+    return $qb
+        ->orderBy('c.editeur', 'ASC')
+        ->getQuery()
+        ->getResult()
+    ;
+}
+public function findArticlesByGenre(string $query)
+{
+    $qb = $this->createQueryBuilder('c');
+    if ($query) {
+        $qb->andWhere('c.genre = :genre')
+            ->setParameter('genre',$query);
+    }
+    return $qb
+        ->orderBy('c.genre', 'ASC')
+        ->getQuery()
+        ->getResult()
+    ;
+}
 }
