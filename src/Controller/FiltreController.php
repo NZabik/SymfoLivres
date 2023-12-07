@@ -29,6 +29,8 @@ class FiltreController extends AbstractController
             ->setAction($this->generateUrl('filterSearch'))
             ->add('auteur', EntityType::class, [
                 'class' => Auteur::class,
+                'label' => 'Auteurs',
+                'placeholder' => '',
                 'choice_label' => 'nom',
                 'attr' => [
                     'class' => 'text-info'
@@ -50,7 +52,7 @@ class FiltreController extends AbstractController
     public function filterSearch(Request $request, LivreRepository $livre)
     {
         $query = $request->request->all('form')['auteur'];
-        if($query) {
+        if ($query) {
             $livres = $livre->findArticlesByAuteur($query);
         }
         return $this->render('filtre/index.html.twig', [
@@ -63,6 +65,8 @@ class FiltreController extends AbstractController
             ->setAction($this->generateUrl('filterSearch2'))
             ->add('editeur', EntityType::class, [
                 'class' => Editeur::class,
+                'label' => 'Editeurs',
+                'placeholder' => '',
                 'choice_label' => 'nom',
                 'attr' => [
                     'class' => 'text-warning'
@@ -82,7 +86,7 @@ class FiltreController extends AbstractController
     public function filterSearch2(Request $request, LivreRepository $livre)
     {
         $query = $request->request->all('form')['editeur'];
-        if($query) {
+        if ($query) {
             $livres = $livre->findArticlesByEditeur($query);
         }
         return $this->render('filtre/index.html.twig', [
@@ -95,6 +99,8 @@ class FiltreController extends AbstractController
             ->setAction($this->generateUrl('filterSearch3'))
             ->add('genre', EntityType::class, [
                 'class' => Genre::class,
+                'label' => 'Genres',
+                'placeholder' => '',
                 'choice_label' => 'nom',
                 'attr' => [
                     'class' => 'text-danger'
@@ -114,7 +120,7 @@ class FiltreController extends AbstractController
     public function filterSearch3(Request $request, LivreRepository $livre)
     {
         $query = $request->request->all('form')['genre'];
-        if($query) {
+        if ($query) {
             $livres = $livre->findArticlesByGenre($query);
         }
         return $this->render('filtre/index.html.twig', [
@@ -122,4 +128,3 @@ class FiltreController extends AbstractController
         ]);
     }
 }
-
