@@ -39,11 +39,15 @@
 								<small class="text-danger">Genre:
 									{{ livre.genre.nom }}</small>
 							</p>
+							<p class="card-text">
+								<small class="text-secondary">Quantité:
+									{{ livre.quantite }}</small>
+							</p>
 							<div class="d-flex justify-content-end d-flex align-items-center">
-								{% if livre.user is null %}
+								{% if livre.quantite > 0 %}
 									{{ include('livre/_location_form.html.twig') }}
 								{% else %}
-									<p class="h4 text-danger mx-2">Livre  déjà loué</p>
+									<p class="h4 text-danger mx-2">Plus disponible à la location</p>
 								{% endif %}
 								{% if is_granted('ROLE_ADMIN') %}
 									<a href="{{ path('app_livre_show', {'id': livre.id}) }}" class="btn btn-primary mx-1">Détails</a>

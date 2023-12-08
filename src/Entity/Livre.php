@@ -57,10 +57,14 @@ class Livre
     #[ORM\Column(nullable: true)]
     private ?int $quantite = null;
 
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'location')]
+    private Collection $stock;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
         $this->users = new ArrayCollection();
+        $this->stock = new ArrayCollection();
 }
 
 
@@ -212,6 +216,30 @@ class Livre
     public function setQuantite(?int $quantite): static
     {
         $this->quantite = $quantite;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getStock(): Collection
+    {
+        return $this->stock;
+    }
+
+    public function addStock(User $stock): static
+    {
+        if (!$this->stock->contains($stock)) {
+            $this->stock->add($stock);
+        }
+
+        return $this;
+    }
+
+    public function removeStock(User $stock): static
+    {
+        $this->stock->removeElement($stock);
 
         return $this;
     }

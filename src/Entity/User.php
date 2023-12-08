@@ -68,11 +68,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToMany(targetEntity: Livre::class, inversedBy: 'users')]
     private Collection $wish;
 
+    #[ORM\ManyToMany(targetEntity: Livre::class, mappedBy: 'stock')]
+    private Collection $location;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
         $this->livres = new ArrayCollection();
         $this->wish = new ArrayCollection();
+        $this->location = new ArrayCollection();
 }
     
     
@@ -312,6 +316,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeWish(Livre $wish): static
     {
         $this->wish->removeElement($wish);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Livre>
+     */
+    public function getLocation(): Collection
+    {
+        return $this->location;
+    }
+
+    public function addLocation(Livre $location): static
+    {
+        if (!$this->location->contains($location)) {
+            $this->location->add($location);
+            $location->addStock($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLocation(Livre $location): static
+    {
+        if ($this->location->removeElement($location)) {
+            $location->removeStock($this);
+        }
 
         return $this;
     }

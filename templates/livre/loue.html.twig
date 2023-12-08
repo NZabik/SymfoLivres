@@ -29,10 +29,10 @@
 							<small class="text-body-secondary">Genre:
 								{{ livre.genre.nom }}</small>
 						</p>
-							<div class="d-flex justify-content-between align-items-center">
-								<div>
+							<div class="d-flex justify-content-end align-items-center">
+								{# <div>
 									<p class="text-success">loué le : {{ livre.dateLocation|date('d-m-Y à H:i:s') }}</p>
-								</div>
+								</div> #}
 								<div>
 									{{ include('livre/_rendre_form.html.twig') }}
 								</div>
