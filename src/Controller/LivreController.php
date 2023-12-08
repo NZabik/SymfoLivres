@@ -19,6 +19,17 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 #[Route('/livre')]
 class LivreController extends AbstractController
 {
+    #[Route('/wish', name: 'app_livre_wish', methods: ['GET'])]
+    #[IsGranted('ROLE_USER')]
+    public function wish(): Response
+    {
+        $user = $this->getUser();
+        assert($user instanceof User);
+        return $this->render('livre/wish.html.twig', [
+            'livres' => $user->getWish(),
+        ]);
+    }
+    
     #[Route('/loue', name: 'app_livre_loue', methods: ['GET'])]
     #[IsGranted('ROLE_USER')]
     public function loue(): Response
@@ -202,5 +213,30 @@ class LivreController extends AbstractController
         }
 
         return $this->redirectToRoute('app_livre_index', [], Response::HTTP_SEE_OTHER);
+    }
+    #[Route('/{id}/wish', name: 'app_livre_souhait', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_USER')]
+    public function souhait(Request $request, Livre $livre, EntityManagerInterface $entityManager): Response
+    {
+
+        if ($this->isCsrfTokenValid('wish' . $livre->getId(), $request->request->get('_token'))) {
+           
+                $livre->addUser($this->getUser());
+                $entityManager->flush();
+         
+        } return $this->redirectToRoute('app_livre_index', [], Response::HTTP_SEE_OTHER);
+    }
+    #[Route('/{id}/unwish', name: 'app_livre_unwish', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_USER')]
+    public function nonsouhait(Request $request, Livre $livre, EntityManagerInterface $entityManager): Response
+    {
+
+        if ($this->isCsrfTokenValid('unwish' . $livre->getId(), $request->request->get('_token'))) {
+            $livre->removeUser($this->getUser());
+            $entityManager->flush();
+            
+        }
+
+        return $this->redirectToRoute('app_livre_wish', [], Response::HTTP_SEE_OTHER);
     }
 }

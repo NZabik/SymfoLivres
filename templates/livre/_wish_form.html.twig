@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_livre_souhait', {'id': livre.id}) }}" onsubmit="return confirm('Livre ajouté à la Wish List');">
+    <input type="hidden" name="_token" value="{{ csrf_token('wish' ~ livre.id) }}">
+    <button class="btn btn-success"><img src="/assets/heart-angle-svgrepo-com.svg" alt="" width="23px"></button>
+</form>

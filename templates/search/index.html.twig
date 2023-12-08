@@ -34,11 +34,16 @@
 											{{ livre.genre.nom }}</small>
 									</p>
 									<div class="d-flex justify-content-end d-flex align-items-center">
-										{% if livre.quantite > 0 %}
+								{% if livre.quantite > 0 %}
+								<div class="mx-1">
 									{{ include('livre/_location_form.html.twig') }}
+									</div>
 								{% else %}
 									<p class="h4 text-danger mx-2">Plus disponible à la location</p>
 								{% endif %}
+								<div class="mx-1">
+									{{ include('livre/_wish_form.html.twig') }}
+								</div>
 								{% if is_granted('ROLE_ADMIN') %}
 									<a href="{{ path('app_livre_show', {'id': livre.id}) }}" class="btn btn-primary mx-1">Détails</a>
 									<a href="{{ path('app_livre_edit', {'id': livre.id}) }}" class="btn btn-primary mx-1">Editer</a>

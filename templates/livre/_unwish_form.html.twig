@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_livre_unwish', {'id': livre.id}) }}">
+    <input type="hidden" name="_token" value="{{ csrf_token('unwish' ~ livre.id) }}">
+    <button class="btn btn-info"><img src="/assets/heart-broken-svgrepo-com.svg" alt="" width="23px"></button>
+</form>
