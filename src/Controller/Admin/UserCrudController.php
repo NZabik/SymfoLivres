@@ -3,6 +3,7 @@
 namespace App\Controller\Admin;
 
 use App\Entity\User;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ArrayField;
@@ -27,7 +28,11 @@ class UserCrudController extends AbstractCrudController
             TextField::new('Email'),
             TextField::new('password'),
             ArrayField::new('roles'),
-            ImageField::new('profil')->setBasePath('uploads/profil/')->setUploadDir('public/uploads/profil/'),
+            ImageField::new('profil')
+                ->setBasePath('uploads/profil/')
+                ->setUploadDir('public/uploads/profil/')
+                ->setRequired($pageName !== Crud::PAGE_EDIT)
+                ->setFormTypeOptions($pageName == Crud::PAGE_EDIT ? ['allow_delete' => false] : []),
             BooleanField::new('RGPD'),
             BooleanField::new('is_verified'),
         ];

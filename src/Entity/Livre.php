@@ -54,6 +54,9 @@ class Livre
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'wish')]
     private Collection $users;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $quantite = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
@@ -197,6 +200,18 @@ class Livre
         if ($this->users->removeElement($user)) {
             $user->removeWish($this);
         }
+
+        return $this;
+    }
+
+    public function getQuantite(): ?int
+    {
+        return $this->quantite;
+    }
+
+    public function setQuantite(?int $quantite): static
+    {
+        $this->quantite = $quantite;
 
         return $this;
     }
