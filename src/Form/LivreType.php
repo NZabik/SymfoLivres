@@ -14,6 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class LivreType extends AbstractType
 {
@@ -74,7 +75,17 @@ class LivreType extends AbstractType
             ->add('genre', EntityType::class, [
                 'class' => Genre::class,
                 'choice_label' => 'nom',
-            ]);
+            ])
+            ->add('quantite', IntegerType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    ],
+                'label' => 'Quantité',
+                'label_attr' => [
+                    'class' => 'form-label mt-4',
+                ],
+            ])
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

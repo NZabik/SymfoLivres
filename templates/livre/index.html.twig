@@ -1,11 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Livre index
+{% block title %}Liste des livres
 {% endblock %}
 
 {% block body %}
 	<div class="container mt-4">
-		<h1>Livre index</h1>
+		<h1>Liste des livres</h1>
+		{% if is_granted('ROLE_ADMIN') %}
+		<a href="{{ path('app_livre_new') }}" class="btn btn-primary">Ajouter un nouveau livre</a>
+	{% endif %}
 		<div class="d-flex my-2">
 			<div class="mx-2">
 				{{ render(controller('App\\Controller\\FiltreController::filterBar')) }}
@@ -70,7 +73,4 @@
 			<div>Pas de livres trouvés</div>
 		</tr>
 	{% endfor %}
-	{% if is_granted('ROLE_ADMIN') %}
-		<a href="{{ path('app_livre_new') }}" class="btn btn-primary">Ajouter un nouveau livre</a>
-	{% endif %}
 {% endblock %}
