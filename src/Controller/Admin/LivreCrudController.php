@@ -36,7 +36,6 @@ class LivreCrudController extends AbstractCrudController
             AssociationField::new('auteur'),
             AssociationField::new('editeur'),
             AssociationField::new('genre'),
-            AssociationField::new('user'),
             IntegerField::new('quantite'),
         ];
     }
