@@ -37,10 +37,10 @@ class DashboardController extends AbstractDashboardController
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linktoRoute('Retour au site', 'fa fa-book-open', 'home.index');
-        yield MenuItem::linkToCrud('User', 'fas fa-users', User::class);
-        yield MenuItem::linkToCrud('Auteur', 'fas fa-user-pen', Auteur::class);
-        yield MenuItem::linkToCrud('Editeur', 'far fa-handshake', Editeur::class);
-        yield MenuItem::linkToCrud('Livre', 'fas fa-book', Livre::class);
-        yield MenuItem::linkToCrud('Genre', 'fas fa-book-atlas', Genre::class);
+        yield MenuItem::linkToCrud('User', 'fas fa-users', User::class)->setDefaultSort(['id' => 'ASC']);
+        yield MenuItem::linkToCrud('Auteur', 'fas fa-user-pen', Auteur::class)->setDefaultSort(['id' => 'ASC']);
+        yield MenuItem::linkToCrud('Editeur', 'far fa-handshake', Editeur::class)->setDefaultSort(['id' => 'ASC']);
+        yield MenuItem::linkToCrud('Livre', 'fas fa-book', Livre::class)->setDefaultSort(['id' => 'ASC']);
+        yield MenuItem::linkToCrud('Genre', 'fas fa-book-atlas', Genre::class)->setDefaultSort(['id' => 'ASC']);
     }
 }
