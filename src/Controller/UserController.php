@@ -6,6 +6,7 @@ use App\Form\UserType;
 use App\Form\UserPasswordType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -82,6 +83,10 @@ class UserController extends AbstractController
     
                     // updates the 'brochureFilename' property to store the PDF file name
                     // instead of its contents
+                    $ancien = $user->getProfil();
+                    $fileSystem = new Filesystem();
+                    $fileSystem->remove('../public/uploads/profil/'.$ancien);
+                    
                     $user->setProfil($newFilename);
                 }
                 

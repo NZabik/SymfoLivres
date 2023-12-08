@@ -7,6 +7,7 @@ use App\Entity\Livre;
 use App\Form\LivreType;
 use App\Repository\LivreRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -132,6 +133,11 @@ class LivreController extends AbstractController
 
                 // updates the 'brochureFilename' property to store the PDF file name
                 // instead of its contents
+                $ancien = $livre->getCouverture();
+                    $fileSystem = new Filesystem();
+                    $fileSystem->remove('../public/uploads/couvertures/'.$ancien);
+                
+                
                 $livre->setCouverture($newFilename);
             }
             $entityManager->flush();
