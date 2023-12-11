@@ -163,7 +163,7 @@ class FiltreController extends AbstractController
             ])
             ->add('recherche', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-outline-info'
+                    'class' => 'btn btn-outline-primary'
                 ]
             ])
             ->getForm();
