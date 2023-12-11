@@ -11,14 +11,14 @@
 	{% endif %}
 		<div class="d-flex my-2">
 			<div class="mx-2">
-				{{ render(controller('App\\Controller\\FiltreController::filterBar')) }}
+				{{ render(controller('App\\Controller\\FiltreController::filterBarAll')) }}
 			</div>
-			<div class="mx-2">
+			{# <div class="mx-2">
 				{{ render(controller('App\\Controller\\FiltreController::filterBar2')) }}
 			</div>
 			<div class="mx-2">
 				{{ render(controller('App\\Controller\\FiltreController::filterBar3')) }}
-			</div>
+			</div> #}
 		</div>
 		{% for livre in livres %}
 			<div class="card mb-4" style="max-width: 70rem;">

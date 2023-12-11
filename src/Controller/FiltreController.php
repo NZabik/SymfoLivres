@@ -127,4 +127,66 @@ class FiltreController extends AbstractController
             'livres' => $livres
         ]);
     }
+    public function filterBarAll()
+    {
+        $form = $this->createFormBuilder()
+            ->setAction($this->generateUrl('filterSearchAll'))
+            ->add('auteur', EntityType::class, [
+                'class' => Auteur::class,
+                'required' => false,
+                'label' => 'Auteurs',
+                'placeholder' => '',
+                'choice_label' => 'nom',
+                'attr' => [
+                    'class' => 'text-info'
+                ]
+            ])
+            ->add('editeur', EntityType::class, [
+                'class' => Editeur::class,
+                'required' => false,
+                'label' => 'Editeurs',
+                'placeholder' => '',
+                'choice_label' => 'nom',
+                'attr' => [
+                    'class' => 'text-warning'
+                ]
+            ])
+            ->add('genre', EntityType::class, [
+                'class' => Genre::class,
+                'required' => false,
+                'label' => 'Genres',
+                'placeholder' => '',
+                'choice_label' => 'nom',
+                'attr' => [
+                    'class' => 'text-danger'
+                ]
+            ])
+            ->add('recherche', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-outline-info'
+                ]
+            ])
+            ->getForm();
+        return $this->render('filtre/filterBarAll.html.twig', [
+            'form' => $form->createView()
+        ]);
+    }
+
+
+    #[Route('/filterSearchAll', name: 'filterSearchAll')]
+    public function filterSearchAll(Request $request, LivreRepository $livre)
+    {
+        $query = $request->request->all('form')['auteur'];
+        $query2 = $request->request->all('form')['editeur'];
+        $query3 = $request->request->all('form')['genre'];
+        if  (($query == "") && ($query2 == "") && ($query3 == "")){
+            return $this->redirectToRoute( 'app_livre_index' )
+        ;
+        } else if ($query or $query2 or $query3) {
+            $livres = $livre->findArticlesByAll($query , $query2 , $query3);
+        }
+        return $this->render('filtre/index.html.twig', [
+            'livres' => $livres
+        ]);
+    }
 }

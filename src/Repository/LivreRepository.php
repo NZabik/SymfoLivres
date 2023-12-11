@@ -76,4 +76,67 @@ public function findArticlesByGenre(string $query)
         ->getResult()
     ;
 }
+
+public function findArticlesByAll($query, $query2, $query3)
+{
+    if((($query == "") && ($query2 == ""))) {
+        return $this->createQueryBuilder("a")
+        ->Where('a.genre = :genre')
+        ->setParameter('genre',$query3)
+        ->getQuery()
+        ->getResult()
+    ;
+    } else if ((($query2 == "") && ($query3 == ""))) {
+        return $this->createQueryBuilder("a")
+        ->Where('a.auteur = :auteur')
+        ->setParameter('auteur',$query)
+        ->getQuery()
+        ->getResult()
+    ;
+    } else if ((($query == "") && ($query3 == ""))) {
+        return $this->createQueryBuilder("a")
+        ->Where('a.editeur = :editeur')
+        ->setParameter('editeur',$query2)
+        ->getQuery()
+        ->getResult()
+    ;
+    } else if ($query == "") {
+        return $this->createQueryBuilder("a")
+        ->Where('a.editeur = :editeur')
+        ->andWhere('a.genre = :genre')
+        ->setParameter('editeur',$query2)
+        ->setParameter('genre',$query3)
+        ->getQuery()
+        ->getResult()
+    ;
+    } else if ($query2 == "") {
+        return $this->createQueryBuilder("a")
+        ->Where('a.auteur = :auteur')
+        ->andWhere('a.genre = :genre')
+        ->setParameter('auteur',$query)
+        ->setParameter('genre',$query3)
+        ->getQuery()
+        ->getResult()
+    ;
+    } else if ($query3 == "") {
+        return $this->createQueryBuilder("a")
+        ->Where('a.auteur = :auteur')
+        ->andWhere('a.editeur = :editeur')
+        ->setParameter('auteur',$query)
+        ->setParameter('editeur',$query2)
+        ->getQuery()
+        ->getResult()
+    ;
+    } else {return $this->createQueryBuilder("a")
+        ->where('a.auteur = :auteur')
+        ->andWhere('a.editeur = :editeur')
+        ->andWhere('a.genre = :genre')
+        ->setParameter('auteur',$query)
+        ->setParameter('editeur',$query2)
+        ->setParameter('genre',$query3)
+        ->getQuery()
+        ->getResult()
+    ;
+}
+}
 }
