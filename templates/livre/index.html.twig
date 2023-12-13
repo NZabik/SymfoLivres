@@ -14,11 +14,11 @@
 				{{ render(controller('App\\Controller\\FiltreController::filterBarAll')) }}
 			</div>
 			{# <div class="mx-2">
-																{{ render(controller('App\\Controller\\FiltreController::filterBar2')) }}
-															</div>
-															<div class="mx-2">
-																{{ render(controller('App\\Controller\\FiltreController::filterBar3')) }}
-															</div> #}
+				{{ render(controller('App\\Controller\\FiltreController::filterBar2')) }}
+			</div>
+			<div class="mx-2">
+				{{ render(controller('App\\Controller\\FiltreController::filterBar3')) }}
+			</div> #}
 		</div>
 		{% for livre in livres %}
 			<div class="card mb-4" style="max-width: 70rem;">
@@ -29,7 +29,7 @@
 					<div class="col-md-8">
 						<div class="card-body">
 							<h5 class="card-title">{{ livre.nom }}</h5>
-							
+
 							<p class="card-text">
 								<small class="text-info">Auteur:
 									{{ livre.auteur.nom }}</small>
@@ -63,23 +63,23 @@
 									</button>
 								</div>
 								<!-- Modal -->
-	<div class="modal fade" id="exampleModal{{livre.id}}" tabindex="-1" aria-labelledby="exampleModalLabel{{livre.id}}" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h1 class="modal-title fs-5" id="exampleModalLabel">{{livre.nom}}</h1>
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<img src="{{asset('/uploads/couvertures/'~ livre.couverture) }}" class="img-fluid object-fit-cover" id="imgCard" alt="...">
-					<p class="card-text">{{ livre.resume }}</p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				</div>
-			</div>
-		</div>
-	</div>
+								<div class="modal fade" id="exampleModal{{livre.id}}" tabindex="-1" aria-labelledby="exampleModalLabel{{livre.id}}" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h1 class="modal-title fs-5" id="exampleModalLabel">{{livre.nom}}</h1>
+												<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+											</div>
+											<div class="modal-body">
+												<img src="{{asset('/uploads/couvertures/'~ livre.couverture) }}" class="img-fluid object-fit-cover" id="imgCard" alt="...">
+												<p class="card-text">{{ livre.resume }}</p>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+											</div>
+										</div>
+									</div>
+								</div>
 								{% if is_granted('ROLE_ADMIN') %}
 									<a href="{{ path('app_livre_show', {'id': livre.id}) }}" class="btn btn-primary mx-1">Détails</a>
 									<a href="{{ path('app_livre_edit', {'id': livre.id}) }}" class="btn btn-primary mx-1">Editer</a>
@@ -96,4 +96,4 @@
 			<div>Pas de livres trouvés</div>
 		</tr>
 	{% endfor %}
-	{% endblock %}
+{% endblock %}
